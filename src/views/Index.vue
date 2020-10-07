@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import MyHeader from '@/components/Header';
+import MyHeader from "@/components/Header";
 
 export default {
   name: "index",
