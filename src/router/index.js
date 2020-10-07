@@ -1,6 +1,9 @@
 import { createRouter, createWebHashHistory } from 'vue-router';
 
-import Home from '@/views/Home'
+const Index = () => import('@/views/Index')
+const Home = () => import('@/views/Home')
+const About = () => import('@/views/About')
+const MyBlog = () => import('@/views/blog/MyBlog')
 
 const router = createRouter({
   history: createWebHashHistory(),
@@ -10,9 +13,23 @@ const router = createRouter({
       redirect: '/home'
     },
     {
-      path: '/home',
-      name: 'home',
-      component: Home
+      path: '/index',
+      name: 'index',
+      component: Index,
+      children: [
+        {
+          path: '/home',
+          component: Home,
+        },
+        {
+          path: '/blog',
+          component: MyBlog,
+        },
+        {
+          path: '/about',
+          component: About,
+        }
+      ]
     }
   ]
 });
