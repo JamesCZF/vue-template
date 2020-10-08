@@ -1,22 +1,24 @@
 <template>
   <div class="header">
-    <div
-      class="logo"
-      @click="toPage('/')"
-    >福不服</div>
-    <div class="menu-list">
+    <div class="container">
       <div
-        class="menu"
+        class="logo"
         @click="toPage('/')"
-      >首页</div>
-      <div
-        class="menu"
-        @click="toPage('/blog')"
-      >博客</div>
-      <div
-        class="menu"
-        @click="toPage('/about')"
-      >个人简介</div>
+      >福不服</div>
+      <div class="menu-list">
+        <div
+          class="menu"
+          @click="toPage('/')"
+        >首页</div>
+        <div
+          class="menu"
+          @click="toPage('/blog')"
+        >博客</div>
+        <div
+          class="menu"
+          @click="toPage('/about')"
+        >个人简介</div>
+      </div>
     </div>
   </div>
 </template>
@@ -35,34 +37,42 @@ export default {
 
 <style lang="less" scoped>
 @import "~@/assets/styles/variables.less";
-
 .header {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 15px 200px;
-  background: rgba(0, 0, 0, 0.2);
-  .logo {
-    cursor: pointer;
-    color: #fff;
-    font-weight: bold;
-    font-size: 36px;
-    padding: 0;
-    font-family: "Nunito", sans-serif;
-  }
-  .menu-list {
+  padding: 15px 0;
+  height: 66px;
+  box-sizing: border-box;
+  background: rgba(0, 0, 0, 0.15);
+  z-index: 2;
+  .container {
     display: flex;
-    .menu {
-      margin-right: 40px;
-      color: #fff;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 auto;
+    .logo {
       cursor: pointer;
+      color: #fff;
+      font-weight: bold;
+      font-size: 36px;
+      padding: 0;
+      font-family: "Nunito", sans-serif;
     }
-    .menu:hover {
-      color: @primary-color;
+    .menu-list {
+      display: flex;
+      .menu {
+        margin-right: 40px;
+        color: #fff;
+        cursor: pointer;
+      }
+      .menu:last-child {
+        margin-right: 0;
+      }
+      .menu:hover {
+        color: @primary-color;
+      }
     }
   }
 }
