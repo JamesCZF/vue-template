@@ -1,0 +1,29 @@
+@font-face {font-family: "iconfont";
+  src: url('iconfont.eot?t=1602161100530'); /* IE9 */
+  src: url('iconfont.eot?t=1602161100530#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url('data:application/x-font-woff2;charset=utf-8;base64,d09GMgABAAAAAAR0AAsAAAAACLgAAAQnAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHEIGVgCDHAqEfIQeATYCJAMQCwoABCAFhG0HQBuIB8gusG3YkyRb2A3nWomgra6Gq+O5IR7+f9x/+9x7PpmQwOQIx580M0kKkRFqk2dNiVApzmCo7//W2uyJVUL5iXTeMJGVPys+N4db5BESjSQWCsS7RIbQxAb00KgylZSvsB1PB2/u0cB/R6OiOKB3wLNAA4tCjHbFqwK7/+dwaVN8fqvtMsfgXtQLMN4a0N7YBunF0R3ICfoNYxeXcZpAuzFJwnZ77yiJSdqkQFzXVZHEYjpZUhxaheaclSmeAk1ayz3oGE/c348/FgKfoqnSZh5cbFNI43f5HAHv/KU7YyMAfn8WMOuomEckcTnXdlbQj80LapcyQ1YQrbql0FeH//Px18CCtcha8b88ilCJZpqsE2GX4pXv7CaZwnd/MsH3CJ0K0alohf4PgOjFwQj68CKVXk5FRtw5VySRPpwzQy0XMmRzV2xw66Uz6dkgCN8dIiI7f9FLa1vb3d9AY1MzUzRH5wft9Cddm/YmdjUDPER9Q3TYw4C6s5qalhG97zE/3Ng23bdUY7vYPNSNu053YXo7VrVfh+XNAs8M0b5TawjTI3pcoKnR6Yhq5sywh7b2XqOsXZhQ3ZLcjc1NmEc3CQu7qbuvmWsaaGoGaEbSrc9NVdhLWztosO1+09f0/QzpKwYLROAIbDSunFyfbc8nRNvz291MQddZcm1y1HzrESm6wfOj7/RZBUJ//yv93/lUv6TpT8m1AXiR3I48fCMd+H1PSmHxwqM63PgI+rNSg3cJPH9+pFkTFBxS/3X/heGWwrmzC7lQB1K/Dtz8WDeYg6YpDOpsm2OVhD1qzPW7wuG9jsFBk+1+624X+b3fa/y6Rwpkc3+liszoqac1Seccx7P8Xl4zxJurpJptVwMyDR9POZNB+lzsPOhAmh/I5QZxUecbj1MRMnRsMm6UpO0DcbA9PDkymddg0KCc60bF/RoZf/Oz0v8qcwT661lxYNHTsGbT8MjMP4/Wt74r6zTUHDgZJtb1yvVL/I36sr3Wjaz2jxEl+NojeAy9DQnU579XgcT7Afg1K1IWavpMUWTyFHs6FclQ0K4bee0p+r33oRiqXUhoNRRC0WIUqlbjyMTOQ5MOS9Cs1Rq0m9OxvsMAJiiyDbMOAYRe11B0ewtVrzIysW/QZNgHNOsNGNodRsWOHSYjINHCUOSogGcCBHi5DjWMPOEVD6NatEQWFbq4cWQFPQgSouLJZAc6yPqYExWr5qOjKfhGujbogvPQslwIj3QNlHnaP5p71WJivnkvSnuF2SRhC4NEHFIAySqgk7kc1K7NJVI/PwypiiwiVlJWYh2HmAK9e5CTlq2B7JA5tcrO5ZKCJao8jqMAxbhsoB1YkKXHXMDLH2ZAMi5NaxHxVMugarSuLD2+wr7CddBO2y+jRI2MJnlD1K245coiPwhNDt5JLSEA') format('woff2'),
+  url('iconfont.woff?t=1602161100530') format('woff'),
+  url('iconfont.ttf?t=1602161100530') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+ */
+  url('iconfont.svg?t=1602161100530#iconfont') format('svg'); /* iOS 4.1- */
+}
+
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.iconmail:before {
+  content: "\e668";
+}
+
+.iconlocation1:before {
+  content: "\e620";
+}
+
+.icontel:before {
+  content: "\e671";
+}
+

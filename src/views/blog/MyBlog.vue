@@ -36,7 +36,11 @@
       </div>
     </div>
     <div class="right">
-      <a-input-search placeholder="input search text" enter-button @search="onSearch" />
+      <a-input-search
+        placeholder="搜索文章"
+        enter-button
+        @search="onSearch"
+      />
       <div class="category-wrap">
         <div class="category-title">分类</div>
         <ul class="category">
@@ -51,7 +55,10 @@
 <script>
 export default {
   name: "Home",
-  components: {}
+  components: {},
+  methods: {
+    onSearch() {}
+  }
 };
 </script>
 
@@ -65,7 +72,7 @@ export default {
   // background: #fff;
   .blog {
     padding: 16px 24px 12px 24px;
-    border-bottom: 1px solid #e5e5e5;
+    border-bottom: 1px solid #d3d3d3;
     .up {
       display: flex;
       cursor: pointer;
@@ -78,7 +85,7 @@ export default {
         font-size: 12px;
         border-radius: 2px;
         color: #e33e33;
-        background-color: rgba(227,62,51,0.1);
+        background-color: rgba(227, 62, 51, 0.1);
       }
       .title {
         word-break: break-all;
@@ -94,7 +101,7 @@ export default {
       line-height: 22px;
       white-space: normal;
       color: #909090;
-      overflow : hidden;
+      overflow: hidden;
       text-overflow: ellipsis;
       display: -webkit-box;
       -webkit-line-clamp: 2;

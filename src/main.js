@@ -7,6 +7,7 @@ import 'ant-design-vue/dist/antd.css';
 
 import '@/assets/styles/common.less'
 import '@/assets/styles/reset.css';
+import '@/assets/styles/iconfont/iconfont.css';
 
 // createApp(App).use(router).mount('#app')
 const app = createApp(App);

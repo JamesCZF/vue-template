@@ -7,7 +7,7 @@
           class="avatar"
         />
       </div>
-      <div class="desc">Hello, I’m Mark Waugh</div>
+      <div class="desc">所有的开始都拥有神奇的力量，护卫和帮助我们的生活。</div>
       <a-button
         ghost
         @click="toBlogPage"
@@ -62,7 +62,7 @@ export default {
     .desc {
       margin-bottom: 20px;
       font-weight: 400;
-      font-size: 56px;
+      font-size: 30px;
       line-height: 65px;
       color: #fff;
       font-family: "Nunito", sans-serif;
