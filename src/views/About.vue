@@ -22,19 +22,51 @@
       <div>
         是一个毅力很强，能坚持学习的人。在web前端岗位工作了两年多，主要vue技术栈，开发过web网站、h5、小程序、管理后台等各类型项目。
       </div>
-      <a href="/resume.pdf" target="_blank">简历详情</a>
+
+      <a
+        href="/resume.pdf"
+        target="_blank"
+      >更多信息</a>
+      <!-- <div
+        class="more-btn"
+        @click="onMoreClick"
+      >更多信息</div>
+      <preview-file
+        src="/resume.pdf"
+        :visible="visible"
+        @preview-close="onPreviewClose"
+      ></preview-file> -->
     </div>
   </div>
 </template>
 
 <script>
+// import PreviewFile from "@/components/PreviewFile.vue";
+
 export default {
   name: "about",
-  components: {}
+  components: {
+    // PreviewFile
+  },
+  data() {
+    return {
+      visible: false
+    };
+  },
+  methods: {
+    onPreviewClose() {
+      this.visible = false;
+    },
+    onMoreClick() {
+      this.visible = true;
+    }
+  }
 };
 </script>
 
 <style lang="less" scoped>
+@import "~@/assets/styles/variables.less";
+
 .container {
   display: flex;
   flex-direction: column;
@@ -84,5 +116,9 @@ export default {
   font-size: 20px;
   font-weight: 400;
   line-height: 1.2;
+}
+.more-btn {
+  color: @primary-color;
+  cursor: pointer;
 }
 </style>

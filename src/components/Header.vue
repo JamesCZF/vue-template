@@ -1,5 +1,8 @@
 <template>
-  <div class="header" :class="{'home-header': isHomeHeader}">
+  <div
+    class="header"
+    :class="{'home-header': isHomeHeader}"
+  >
     <div class="menu-wrap">
       <div
         class="logo"
@@ -30,7 +33,7 @@ export default {
   data() {
     return {
       isHomeHeader: true
-    }
+    };
   },
   methods: {
     toPage(path) {
@@ -38,18 +41,19 @@ export default {
     }
   },
   watch: {
-    $route(to){
-      this.isHomeHeader = to.path === '/home' ? true : false;
+    $route(to) {
+      this.isHomeHeader = to.path === "/home" ? true : false;
     }
   },
   mounted() {
-    this.isHomeHeader = this.$route.path === '/home' ? true : false;
+    this.isHomeHeader = this.$route.path === "/home" ? true : false;
   }
 };
 </script>
 
 <style lang="less" scoped>
 @import "~@/assets/styles/variables.less";
+
 .header {
   position: fixed;
   top: 0;
@@ -59,7 +63,7 @@ export default {
   height: 66px;
   box-sizing: border-box;
   background: #fff;
-  box-shadow: 0 2px 8px 0 rgba(26,66,70,.1);
+  box-shadow: 0 2px 8px 0 rgba(26, 66, 70, 0.1);
   z-index: 1;
   .menu-wrap {
     display: flex;
@@ -93,7 +97,8 @@ export default {
 }
 .home-header {
   background: rgba(0, 0, 0, 0.15);
-  .logo, .menu {
+  .logo,
+  .menu {
     color: #fff;
   }
 }
