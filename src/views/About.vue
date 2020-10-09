@@ -22,9 +22,8 @@
       <div>
         是一个毅力很强，能坚持学习的人。在web前端岗位工作了两年多，主要vue技术栈，开发过web网站、h5、小程序、管理后台等各类型项目。
       </div>
-      <a href="https://www.lagou.com/resume/preview.html">简历详情</a>
+      <a href="/resume.pdf" target="_blank">简历详情</a>
     </div>
-    <!-- 星美乐 https://cdn.gymoo.cn/FlIS19TGrkZNfguvjZiYGnTGxbBB -->
   </div>
 </template>
 

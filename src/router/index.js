@@ -4,6 +4,7 @@ const Index = () => import('@/views/Index')
 const Home = () => import('@/views/Home')
 const About = () => import('@/views/About')
 const MyBlog = () => import('@/views/blog/MyBlog')
+const BlogDetail = () => import('@/views/blog/BlogDetail')
 
 const router = createRouter({
   history: createWebHashHistory(),
@@ -24,6 +25,10 @@ const router = createRouter({
         {
           path: '/blog',
           component: MyBlog,
+        },
+        {
+          path: '/blog/detail',
+          component: BlogDetail,
         },
         {
           path: '/about',

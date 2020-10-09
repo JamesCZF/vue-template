@@ -1,6 +1,6 @@
 <template>
-  <div class="header">
-    <div class="container">
+  <div class="header" :class="{'home-header': isHomeHeader}">
+    <div class="menu-wrap">
       <div
         class="logo"
         @click="toPage('/')"
@@ -25,12 +25,25 @@
 
 <script>
 export default {
-  name: "eader",
+  name: "my-header",
   components: {},
+  data() {
+    return {
+      isHomeHeader: true
+    }
+  },
   methods: {
     toPage(path) {
       this.$router.push(path);
     }
+  },
+  watch: {
+    $route(to){
+      this.isHomeHeader = to.path === '/home' ? true : false;
+    }
+  },
+  mounted() {
+    this.isHomeHeader = this.$route.path === '/home' ? true : false;
   }
 };
 </script>
@@ -45,16 +58,18 @@ export default {
   padding: 15px 0;
   height: 66px;
   box-sizing: border-box;
-  background: rgba(0, 0, 0, 0.15);
-  z-index: 2;
-  .container {
+  background: #fff;
+  box-shadow: 0 2px 8px 0 rgba(26,66,70,.1);
+  z-index: 1;
+  .menu-wrap {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin: 0 auto;
+    max-width: 1140px;
     .logo {
       cursor: pointer;
-      color: #fff;
+      // color: #fff;
       font-weight: bold;
       font-size: 36px;
       padding: 0;
@@ -64,7 +79,7 @@ export default {
       display: flex;
       .menu {
         margin-right: 40px;
-        color: #fff;
+        // color: #fff;
         cursor: pointer;
       }
       .menu:last-child {
@@ -74,6 +89,12 @@ export default {
         color: @primary-color;
       }
     }
+  }
+}
+.home-header {
+  background: rgba(0, 0, 0, 0.15);
+  .logo, .menu {
+    color: #fff;
   }
 }
 </style>

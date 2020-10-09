@@ -2,7 +2,7 @@
   <div class="container">
     <div class="blog-list">
       <div class="blog">
-        <div class="up">
+        <div class="up" @click="toDetail">
           <div class="label">JavaScript/Vue</div>
           <div class="title">前端实现预览word、excel、pdf、ppt文件</div>
         </div>
@@ -57,7 +57,12 @@ export default {
   name: "Home",
   components: {},
   methods: {
-    onSearch() {}
+    onSearch() {},
+    toDetail() {
+      this.$router.push({
+        path: '/blog/detail'
+      })
+    }
   }
 };
 </script>
