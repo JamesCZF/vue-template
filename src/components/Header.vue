@@ -11,14 +11,17 @@
       <div class="menu-list">
         <div
           class="menu"
+          :class="{active: activeRoute === '/home'}"
           @click="toPage('/')"
         >首页</div>
         <div
           class="menu"
+          :class="{active: activeRoute === '/blog' || activeRoute === '/blog/detail'}"
           @click="toPage('/blog')"
         >博客</div>
         <div
           class="menu"
+          :class="{active: activeRoute === '/about'}"
           @click="toPage('/about')"
         >个人简介</div>
       </div>
@@ -32,7 +35,8 @@ export default {
   components: {},
   data() {
     return {
-      isHomeHeader: true
+      isHomeHeader: true,
+      activeRoute: "/home"
     };
   },
   methods: {
@@ -42,10 +46,13 @@ export default {
   },
   watch: {
     $route(to) {
+      console.log(to.path, "path");
+      this.activeRoute = to.path;
       this.isHomeHeader = to.path === "/home" ? true : false;
     }
   },
   mounted() {
+    this.activeRoute = this.$route.path;
     this.isHomeHeader = this.$route.path === "/home" ? true : false;
   }
 };
@@ -81,16 +88,18 @@ export default {
     }
     .menu-list {
       display: flex;
+      position: relative;
+      top: 5px;
       .menu {
-        margin-right: 40px;
+        padding: 0 20px 10px;
         // color: #fff;
         cursor: pointer;
       }
-      .menu:last-child {
-        margin-right: 0;
-      }
       .menu:hover {
         color: @primary-color;
+      }
+      .active {
+        border-bottom: 1px solid @primary-color;
       }
     }
   }

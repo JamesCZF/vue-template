@@ -1,44 +1,29 @@
 <template>
-  <div class="container">
+  <div class="content-wrap">
     <div class="blog-list">
-      <div class="blog">
-        <div class="up" @click="toDetail">
+      <div
+        class="blog"
+        v-for="item of blogList"
+        :key="item.id"
+      >
+        <div
+          class="up"
+          @click="toDetail(item)"
+        >
           <div class="label">JavaScript/Vue</div>
-          <div class="title">前端实现预览word、excel、pdf、ppt文件</div>
+          <div class="title">{{item.title}}</div>
         </div>
         <div class="desc">
-          最近遇到一个需要同时支持预览word、excel、pdf、ppt的需求，在此记录一下，目前只是简单实现预览的功能，
-          没有作深入的了解。1.非常简单的一个方法如下（亲测同时支持word、excel、pdf、ppt文件类型）, 详情可查看文档
+          {{item.description}}
         </div>
-        <div class="time">2020-06-19 21:12:15</div>
-      </div>
-      <div class="blog">
-        <div class="up">
-          <div class="label">JavaScript/Vue</div>
-          <div class="title">前端实现预览word、excel、pdf、ppt文件</div>
-        </div>
-        <div class="desc">
-          最近遇到一个需要同时支持预览word、excel、pdf、ppt的需求，在此记录一下，目前只是简单实现预览的功能，
-          没有作深入的了解。1.非常简单的一个方法如下（亲测同时支持word、excel、pdf、ppt文件类型）, 详情可查看文档
-        </div>
-        <div class="time">2020-06-19 21:12:15</div>
-      </div>
-      <div class="blog">
-        <div class="up">
-          <div class="label">JavaScript/Vue</div>
-          <div class="title">前端实现预览word、excel、pdf、ppt文件</div>
-        </div>
-        <div class="desc">
-          最近遇到一个需要同时支持预览word、excel、pdf、ppt的需求，在此记录一下，目前只是简单实现预览的功能，
-          没有作深入的了解。1.非常简单的一个方法如下（亲测同时支持word、excel、pdf、ppt文件类型）, 详情可查看文档
-        </div>
-        <div class="time">2020-06-19 21:12:15</div>
+        <div class="time">{{item.createtime}}</div>
       </div>
     </div>
     <div class="right">
       <a-input-search
         placeholder="搜索文章"
         enter-button
+        :allowClear="true"
         @search="onSearch"
       />
       <div class="category-wrap">
@@ -53,22 +38,53 @@
 </template>
 
 <script>
+import axios from "axios";
+import QuillEditor from "@/components/QuillEditor";
+import { formatTime } from "@/utils";
 export default {
   name: "Home",
-  components: {},
+  components: {
+    QuillEditor
+  },
+  data() {
+    return {
+      blogList: [],
+      keyword: ""
+    };
+  },
+  mounted() {
+    this.getBlogList();
+  },
   methods: {
-    onSearch() {},
-    toDetail() {
+    onSearch(keyword) {
+      this.keyword = keyword;
+      this.getBlogList();
+    },
+    toDetail(blog) {
       this.$router.push({
-        path: '/blog/detail'
-      })
+        path: "/blog/detail",
+        query: {
+          id: blog.id
+        }
+      });
+    },
+    getBlogList() {
+      axios.get(`/api/blog/list?keyword=${this.keyword}`).then(res => {
+        const { data, errno } = res.data;
+        if (errno === 0) {
+          data.forEach(item => {
+            item.createtime = formatTime(item.createtime);
+          });
+          this.blogList = data;
+        }
+      });
     }
   }
 };
 </script>
 
 <style lang="less" scoped>
-.container {
+.content-wrap {
   display: flex;
   justify-content: space-between;
 }

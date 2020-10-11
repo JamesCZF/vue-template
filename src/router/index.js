@@ -4,6 +4,7 @@ const Index = () => import('@/views/Index')
 const Home = () => import('@/views/Home')
 const About = () => import('@/views/About')
 const MyBlog = () => import('@/views/blog/MyBlog')
+const HandleBlog = () => import('@/views/blog/HandleBlog')
 const BlogDetail = () => import('@/views/blog/BlogDetail')
 
 const router = createRouter({
@@ -25,6 +26,10 @@ const router = createRouter({
         {
           path: '/blog',
           component: MyBlog,
+        },
+        {
+          path: '/handleblog',
+          component: HandleBlog
         },
         {
           path: '/blog/detail',

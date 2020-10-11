@@ -1,7 +1,10 @@
 <template>
-  <div class="container">
+  <div class="content-wrap">
     <div class="header-wrap">
-      <div class="name">程振福</div>
+      <div
+        class="name"
+        @click="toHandleBlog"
+      >程振福</div>
       <div class="profession">前端工程师</div>
       <div class="social">
         <div class="item">
@@ -59,6 +62,9 @@ export default {
     },
     onMoreClick() {
       this.visible = true;
+    },
+    toHandleBlog() {
+      this.$router.push("/handleblog");
     }
   }
 };
@@ -67,7 +73,7 @@ export default {
 <style lang="less" scoped>
 @import "~@/assets/styles/variables.less";
 
-.container {
+.content-wrap {
   display: flex;
   flex-direction: column;
   justify-content: center;

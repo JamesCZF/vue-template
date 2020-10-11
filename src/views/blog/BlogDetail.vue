@@ -1,18 +1,46 @@
 <template>
-  <div class="container">
-    <div class="title">前端实现预览word、excel、pdf、ppt文件</div>
+  <div class="content-wrap">
+    <div class="title">{{detail.title}}</div>
     <div class="info-wrap">
       <div class="label">JavaScript/Vue</div>
-      <div class="time">2020-06-19 21:12:15</div>
+      <div class="time">{{detail.createtime}}</div>
     </div>
+    <div
+      class="content"
+      v-html="detail.content"
+    ></div>
   </div>
 </template>
 
 <script>
+import axios from "axios";
+import { formatTime } from "@/utils";
 
 export default {
   name: "blogdetail",
-  components: {
+  components: {},
+  data() {
+    return {
+      detail: {}
+    };
+  },
+  mounted() {
+    const { id } = this.$route.query;
+    if (id) {
+      this.getBlogDetail(id);
+    }
+  },
+  methods: {
+    getBlogDetail(id) {
+      axios.get(`/api/blog/detail?id=${id}`).then(res => {
+        const { data, errno } = res.data;
+        if (errno === 0) {
+          data.createtime = formatTime(data.createtime);
+          this.detail = data;
+        }
+        console.log(res, "detail");
+      });
+    }
   }
 };
 </script>
@@ -47,5 +75,8 @@ export default {
     color: #5f6471;
     line-height: 24px;
   }
+}
+.content {
+  margin-top: 30px;
 }
 </style>
