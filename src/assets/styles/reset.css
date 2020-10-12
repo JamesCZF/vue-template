@@ -30,7 +30,7 @@ footer, header, hgroup, menu, nav, section {
 }
 body {
 	line-height: 1;
-  /* background-color: #f5f5d5; */
+  background-color: #f5f6f7;
   font-family: "Nunito", sans-serif;
 }
 ol, ul {

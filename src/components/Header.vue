@@ -21,9 +21,9 @@
         >博客</div>
         <div
           class="menu"
-          :class="{active: activeRoute === '/about'}"
-          @click="toPage('/about')"
-        >个人简介</div>
+          :class="{active: centerRoutes.includes(activeRoute)}"
+          @click="toPage('/profile')"
+        >个人中心</div>
       </div>
     </div>
   </div>
@@ -36,7 +36,8 @@ export default {
   data() {
     return {
       isHomeHeader: true,
-      activeRoute: "/home"
+      activeRoute: "/home",
+      centerRoutes: ["/profile", "/blog-manage"]
     };
   },
   methods: {
