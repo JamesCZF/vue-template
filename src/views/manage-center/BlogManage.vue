@@ -1,12 +1,19 @@
 <template>
   <div class="content">
-    <a-input-search
-      placeholder="搜索文章"
-      enter-button
-      :allowClear="true"
-      class="search-box"
-      @search="onSearch"
-    />
+    <div class="header-wrap">
+      <a-input-search
+        placeholder="搜索文章"
+        enter-button
+        :allowClear="true"
+        class="search-box"
+        @search="onSearch"
+      />
+      <a-button
+        type="primary"
+        class="add-btn"
+        @click="onAddClick"
+      >新增</a-button>
+    </div>
     <div class="blog-list">
       <div
         class="blog"
@@ -46,9 +53,10 @@
 </template>
 
 <script>
-import axios from "axios";
 import QuillEditor from "@/components/QuillEditor";
 import { formatTime } from "@/utils";
+import { deleteBlog, getBlogList } from "@/api/blog";
+
 export default {
   name: "Home",
   components: {
@@ -76,32 +84,35 @@ export default {
         }
       });
     },
-    getBlogList() {
-      axios.get(`/api/blog/list?keyword=${this.keyword}`).then(res => {
-        const { data, errno } = res.data;
-        if (errno === 0) {
-          data.forEach(item => {
-            item.createtime = formatTime(item.createtime);
-          });
-          this.blogList = data;
-        }
-      });
+    async getBlogList() {
+      const {
+        data: { data, errno }
+      } = await getBlogList({ keyword: this.keyword });
+      if (errno === 0) {
+        data.forEach(item => {
+          item.createtime = formatTime(item.createtime);
+        });
+        this.blogList = data;
+      }
     },
     onEditClick(id) {
       this.$router.push({
-        path: "/handleblog",
+        path: "/handle-blog",
         query: {
           id
         }
       });
     },
-    confirmDelete(id) {
-      axios.delete(`/api/blog/del?id=${id}`).then(res => {
-        const { errno } = res.data;
-        if (errno === 0) {
-          this.getBlogList();
-        }
-      });
+    async confirmDelete(id) {
+      const {
+        data: { errno }
+      } = await deleteBlog(id);
+      if (errno === 0) {
+        this.getBlogList();
+      }
+    },
+    onAddClick() {
+      this.$router.push("/handle-blog");
     }
   }
 };
@@ -115,8 +126,13 @@ export default {
   flex-direction: column;
   align-items: space-between;
   width: 80%;
-  .search-box {
-    width: 300px;
+  .header-wrap {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    .search-box {
+      width: 300px;
+    }
   }
   .blog-list {
     // background: #fff;

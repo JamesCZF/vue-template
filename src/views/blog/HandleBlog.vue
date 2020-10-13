@@ -26,8 +26,8 @@
 </template>
 
 <script>
-import axios from "axios";
 import QuillEditor from "@/components/QuillEditor";
+import { addBlog, updateBlog, getBlogDetail } from "@/api/blog";
 
 export default {
   name: "handleblog",
@@ -52,39 +52,37 @@ export default {
     }
   },
   methods: {
-    onSaveClick() {
+    async onSaveClick() {
       const content = this.$refs.quill.getContent();
       const postData = {
         title: this.title,
         description: this.description,
         content
       };
-      const url =
-        this.type === "add"
-          ? "/api/blog/new"
-          : `/api/blog/update?id=${this.id}`;
-      axios.post(url, postData).then(res => {
-        const { data, errno } = res.data;
-        if (errno === 0) {
-          this.$router.push({
-            path: "/blog/detail",
-            query: {
-              id: data.id
-            }
-          });
-        }
-      });
+      let res;
+      if (this.type === "add") {
+        res = await addBlog(postData);
+      } else {
+        res = await updateBlog(this.id, postData);
+      }
+      if (res && res.data.errno === 0) {
+        this.$router.push({
+          path: "/blog/detail",
+          query: {
+            id: res.data.data.id
+          }
+        });
+      }
     },
-    getBlogDetail(id) {
-      axios.get(`/api/blog/detail?id=${id}`).then(res => {
-        const { data, errno } = res.data;
-        if (errno === 0) {
-          this.description = data.description;
-          this.title = data.title;
-          this.content = data.content;
-        }
-        console.log(data, "detail");
-      });
+    async getBlogDetail(id) {
+      const {
+        data: { data, errno }
+      } = await getBlogDetail(id);
+      if (errno === 0) {
+        this.description = data.description;
+        this.title = data.title;
+        this.content = data.content;
+      }
     }
   }
 };

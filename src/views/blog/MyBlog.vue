@@ -38,9 +38,10 @@
 </template>
 
 <script>
-import axios from "axios";
 import QuillEditor from "@/components/QuillEditor";
 import { formatTime } from "@/utils";
+import { getBlogList } from "@/api/blog";
+
 export default {
   name: "Home",
   components: {
@@ -68,16 +69,16 @@ export default {
         }
       });
     },
-    getBlogList() {
-      axios.get(`/api/blog/list?keyword=${this.keyword}`).then(res => {
-        const { data, errno } = res.data;
-        if (errno === 0) {
-          data.forEach(item => {
-            item.createtime = formatTime(item.createtime);
-          });
-          this.blogList = data;
-        }
-      });
+    async getBlogList() {
+      const {
+        data: { data, errno }
+      } = await getBlogList({ keyword: this.keyword });
+      if (errno === 0) {
+        data.forEach(item => {
+          item.createtime = formatTime(item.createtime);
+        });
+        this.blogList = data;
+      }
     }
   }
 };

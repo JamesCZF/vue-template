@@ -37,7 +37,7 @@ export default {
     return {
       isHomeHeader: true,
       activeRoute: "/home",
-      centerRoutes: ["/profile", "/blog-manage"]
+      centerRoutes: ["/profile", "/blog-manage", "/handle-blog"]
     };
   },
   methods: {

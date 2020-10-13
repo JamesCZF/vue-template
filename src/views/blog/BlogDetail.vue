@@ -13,8 +13,8 @@
 </template>
 
 <script>
-import axios from "axios";
 import { formatTime } from "@/utils";
+import { getBlogDetail } from "@/api/blog";
 
 export default {
   name: "blogdetail",
@@ -31,15 +31,14 @@ export default {
     }
   },
   methods: {
-    getBlogDetail(id) {
-      axios.get(`/api/blog/detail?id=${id}`).then(res => {
-        const { data, errno } = res.data;
-        if (errno === 0) {
-          data.createtime = formatTime(data.createtime);
-          this.detail = data;
-        }
-        console.log(res, "detail");
-      });
+    async getBlogDetail(id) {
+      const {
+        data: { data, errno }
+      } = await getBlogDetail(id);
+      if (errno === 0) {
+        data.createtime = formatTime(data.createtime);
+        this.detail = data;
+      }
     }
   }
 };

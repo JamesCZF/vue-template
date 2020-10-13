@@ -7,8 +7,6 @@
         v-model:value="account"
         class="input"
       >
-        <template v-slot:prefix>
-          <user-outlined type="user" /></template>
       </a-input>
     </div>
     <div class="item">
@@ -18,9 +16,6 @@
         v-model:value="password"
         class="input"
       >
-        <template v-slot:prefix>
-          <LockOutlined />
-        </template>
       </a-input-password>
     </div>
     <a-button
@@ -34,7 +29,7 @@
 </template>
 
 <script>
-import axios from "axios";
+import { login } from "@/api/user";
 
 export default {
   name: "login",
@@ -46,21 +41,21 @@ export default {
     };
   },
   methods: {
-    onLoginClick() {
+    async onLoginClick() {
       const postData = {
-        username: this.account,
+        account: this.account,
         password: this.password
       };
-      axios.post("/api/user/login", postData).then(res => {
-        const { message, errno } = res.data;
-        if (errno === 0) {
-          //返回上一页
-        } else {
-          //登录失败
-          this.$message.error(message);
-        }
-        console.log(res, "login res");
-      });
+      const {
+        data: { errno, message }
+      } = await login(postData);
+      if (errno === 0) {
+        //返回上一页
+        this.$router.go(-1);
+      } else {
+        //登录失败
+        this.$message.error(message);
+      }
     }
   }
 };

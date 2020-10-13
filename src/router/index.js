@@ -1,4 +1,5 @@
 import { createRouter, createWebHashHistory } from 'vue-router';
+// import { getCookie } from '@/utils/index';
 
 const Index = () => import('@/views/Index');
 const Home = () => import('@/views/Home');
@@ -37,7 +38,7 @@ const router = createRouter({
           component: MyBlog,
         },
         {
-          path: '/handleblog',
+          path: '/handle-blog',
           component: HandleBlog
         },
         {
@@ -63,4 +64,12 @@ const router = createRouter({
   ]
 });
 
+router.beforeEach(() => {
+  console.log(document.cookie, 'sid')
+  // if (to.meta.needLogin && !getCookie(koa.sid)) {
+  //   next('login')
+  // } else {
+  //   next()
+  // }
+})
 export default router;
