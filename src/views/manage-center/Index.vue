@@ -18,29 +18,29 @@
 
 <script>
 import MyHeader from "@/components/Header";
+import { ref, onMounted } from "vue";
+import { useRoute, useRouter } from "vue-router";
 
 export default {
   name: "index",
   components: {
     MyHeader
   },
-  data() {
+  setup() {
+    const activeRoute = ref("");
+    const route = useRoute();
+    const router = useRouter();
+    onMounted(() => {
+      activeRoute.value = route.path;
+    });
+    function toPage(path) {
+      activeRoute.value = path;
+      router.push(path);
+    }
     return {
-      activeRoute: ""
+      activeRoute,
+      toPage
     };
-  },
-  watch: {
-    $route(to) {
-      this.activeRoute = to.path;
-    }
-  },
-  mounted() {
-    this.activeRoute = this.$route.path;
-  },
-  methods: {
-    toPage(path) {
-      this.$router.push(path);
-    }
   }
 };
 </script>

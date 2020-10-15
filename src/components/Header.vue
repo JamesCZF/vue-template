@@ -6,13 +6,13 @@
     <div class="menu-wrap">
       <div
         class="logo"
-        @click="toPage('/')"
+        @click="toPage('/home')"
       >福不服</div>
       <div class="menu-list">
         <div
           class="menu"
           :class="{active: activeRoute === '/home'}"
-          @click="toPage('/')"
+          @click="toPage('/home')"
         >首页</div>
         <div
           class="menu"
@@ -30,31 +30,36 @@
 </template>
 
 <script>
+import { ref, onMounted } from "vue";
+import { useRoute, useRouter } from "vue-router";
+
 export default {
   name: "my-header",
   components: {},
   data() {
+    return {};
+  },
+  setup() {
+    const centerRoutes = ["/profile", "/blog-manage", "/handle-blog"];
+    const activeRoute = ref("");
+    const isHomeHeader = ref("");
+    const route = useRoute();
+    const router = useRouter();
+    onMounted(() => {
+      activeRoute.value = route.path;
+      isHomeHeader.value = route.path === "/home" ? true : false;
+    });
+    function toPage(path) {
+      activeRoute.value = path;
+      isHomeHeader.value = path === "/home" ? true : false;
+      router.push(path);
+    }
     return {
-      isHomeHeader: true,
-      activeRoute: "/home",
-      centerRoutes: ["/profile", "/blog-manage", "/handle-blog"]
+      activeRoute,
+      isHomeHeader,
+      toPage,
+      centerRoutes
     };
-  },
-  methods: {
-    toPage(path) {
-      this.$router.push(path);
-    }
-  },
-  watch: {
-    $route(to) {
-      console.log(to.path, "path");
-      this.activeRoute = to.path;
-      this.isHomeHeader = to.path === "/home" ? true : false;
-    }
-  },
-  mounted() {
-    this.activeRoute = this.$route.path;
-    this.isHomeHeader = this.$route.path === "/home" ? true : false;
   }
 };
 </script>

@@ -15,31 +15,32 @@
 <script>
 import { formatTime } from "@/utils";
 import { getBlogDetail } from "@/api/blog";
+import { onMounted, ref } from "vue";
+import { useRoute } from "vue-router";
 
 export default {
   name: "blogdetail",
   components: {},
-  data() {
-    return {
-      detail: {}
-    };
-  },
-  mounted() {
-    const { id } = this.$route.query;
-    if (id) {
-      this.getBlogDetail(id);
-    }
-  },
-  methods: {
-    async getBlogDetail(id) {
+  setup() {
+    let detail = ref({});
+    const route = useRoute();
+
+    async function _getBlogDetail() {
       const {
         data: { data, errno }
-      } = await getBlogDetail(id);
+      } = await getBlogDetail(route.query.id);
       if (errno === 0) {
         data.createtime = formatTime(data.createtime);
-        this.detail = data;
+        detail.value = data;
       }
     }
+
+    onMounted(() => {
+      _getBlogDetail();
+    });
+    return {
+      detail
+    };
   }
 };
 </script>

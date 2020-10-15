@@ -19,13 +19,17 @@
 </template>
 
 <script>
+import { useRouter } from "vue-router";
+
 export default {
   name: "Home",
-  components: {},
-  methods: {
-    toBlogPage() {
-      this.$router.push("/blog");
+  setup() {
+    const router = useRouter();
+    function toBlogPage() {
+      router.push("/blog");
     }
+
+    return { toBlogPage };
   }
 };
 </script>

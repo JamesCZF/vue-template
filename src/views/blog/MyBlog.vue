@@ -26,60 +26,53 @@
         :allowClear="true"
         @search="onSearch"
       />
-      <div class="category-wrap">
+      <!-- <div class="category-wrap">
         <div class="category-title">分类</div>
         <ul class="category">
           <li>JavaScript（20）</li>
           <li>Vue（66）</li>
         </ul>
-      </div>
+      </div> -->
     </div>
   </div>
 </template>
 
 <script>
 import QuillEditor from "@/components/QuillEditor";
-import { formatTime } from "@/utils";
-import { getBlogList } from "@/api/blog";
+import { ref, onMounted } from "vue";
+import { useRouter } from "vue-router";
+import { getBlogListLogic } from "@/common/blog";
 
 export default {
   name: "Home",
   components: {
     QuillEditor
   },
-  data() {
-    return {
-      blogList: [],
-      keyword: ""
-    };
-  },
-  mounted() {
-    this.getBlogList();
-  },
-  methods: {
-    onSearch(keyword) {
-      this.keyword = keyword;
-      this.getBlogList();
-    },
-    toDetail(blog) {
-      this.$router.push({
+  setup() {
+    const keyword = ref("");
+    const router = useRouter();
+    const { blogList, getBlog } = getBlogListLogic();
+    function onSearch(key) {
+      keyword.value = key;
+      getBlog(keyword);
+    }
+    function toDetail(blog) {
+      router.push({
         path: "/blog/detail",
         query: {
           id: blog.id
         }
       });
-    },
-    async getBlogList() {
-      const {
-        data: { data, errno }
-      } = await getBlogList({ keyword: this.keyword });
-      if (errno === 0) {
-        data.forEach(item => {
-          item.createtime = formatTime(item.createtime);
-        });
-        this.blogList = data;
-      }
     }
+    onMounted(() => {
+      getBlog();
+    });
+    return {
+      blogList,
+      keyword,
+      onSearch,
+      toDetail
+    };
   }
 };
 </script>

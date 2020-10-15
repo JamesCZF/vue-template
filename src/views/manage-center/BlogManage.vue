@@ -54,66 +54,64 @@
 
 <script>
 import QuillEditor from "@/components/QuillEditor";
-import { formatTime } from "@/utils";
-import { deleteBlog, getBlogList } from "@/api/blog";
+import { deleteBlog } from "@/api/blog";
+import { getBlogListLogic } from "@/common/blog";
+import { useRouter } from "vue-router";
+import { ref, onMounted } from "vue";
 
 export default {
   name: "Home",
   components: {
     QuillEditor
   },
-  data() {
-    return {
-      blogList: [],
-      keyword: ""
-    };
-  },
-  mounted() {
-    this.getBlogList();
-  },
-  methods: {
-    onSearch(keyword) {
-      this.keyword = keyword;
-      this.getBlogList();
-    },
-    toDetail(blog) {
-      this.$router.push({
+  setup() {
+    const keyword = ref("");
+    const router = useRouter();
+    const { blogList, getBlog } = getBlogListLogic();
+
+    function onSearch(key) {
+      keyword.value = key;
+      getBlog(keyword);
+    }
+    function toDetail(blog) {
+      router.push({
         path: "/blog/detail",
         query: {
           id: blog.id
         }
       });
-    },
-    async getBlogList() {
-      const {
-        data: { data, errno }
-      } = await getBlogList({ keyword: this.keyword });
-      if (errno === 0) {
-        data.forEach(item => {
-          item.createtime = formatTime(item.createtime);
-        });
-        this.blogList = data;
-      }
-    },
-    onEditClick(id) {
-      this.$router.push({
+    }
+    function onEditClick(id) {
+      router.push({
         path: "/handle-blog",
         query: {
           id
         }
       });
-    },
-    async confirmDelete(id) {
+    }
+    async function confirmDelete(id) {
       const {
         data: { errno }
       } = await deleteBlog(id);
       if (errno === 0) {
-        this.getBlogList();
+        getBlog();
       }
-    },
-    onAddClick() {
-      this.$router.push("/handle-blog");
     }
+    function onAddClick() {
+      router.push("/handle-blog");
+    }
+    onMounted(() => {
+      getBlog();
+    });
+
+    return {
+      blogList,
+      onSearch,
+      onEditClick,
+      onAddClick,
+      confirmDelete,
+      toDetail
+    };
   }
 };
 </script>

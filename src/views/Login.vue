@@ -30,33 +30,35 @@
 
 <script>
 import { login } from "@/api/user";
+import { ref } from "vue";
+import { useRouter } from "vue-router";
+import { message } from "ant-design-vue";
 
 export default {
   name: "login",
-  components: {},
-  data() {
-    return {
-      account: "",
-      password: ""
-    };
-  },
-  methods: {
-    async onLoginClick() {
+  setup() {
+    const account = ref("");
+    const password = ref("");
+    const router = useRouter();
+    async function onLoginClick() {
       const postData = {
-        account: this.account,
-        password: this.password
+        account: account.value,
+        password: password.value
       };
-      const {
-        data: { errno, message }
-      } = await login(postData);
-      if (errno === 0) {
+      const res = await login(postData);
+      if (res.data.errno === 0) {
         //返回上一页
-        this.$router.go(-1);
+        router.go(-1);
       } else {
         //登录失败
-        this.$message.error(message);
+        message.error(res.data.message);
       }
     }
+    return {
+      account,
+      password,
+      onLoginClick
+    };
   }
 };
 </script>
