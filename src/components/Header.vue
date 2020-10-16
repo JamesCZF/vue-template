@@ -30,7 +30,7 @@
 </template>
 
 <script>
-import { ref, onMounted } from "vue";
+import { ref, onMounted, watch } from "vue";
 import { useRoute, useRouter } from "vue-router";
 
 export default {
@@ -45,13 +45,19 @@ export default {
     const isHomeHeader = ref("");
     const route = useRoute();
     const router = useRouter();
+    
     onMounted(() => {
       activeRoute.value = route.path;
       isHomeHeader.value = route.path === "/home" ? true : false;
     });
+    watch(
+      () => route.path,
+      (curPath) => {
+        activeRoute.value = curPath;
+      isHomeHeader.value = curPath === "/home" ? true : false;
+      }
+    )
     function toPage(path) {
-      activeRoute.value = path;
-      isHomeHeader.value = path === "/home" ? true : false;
       router.push(path);
     }
     return {
