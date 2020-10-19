@@ -35,28 +35,24 @@ import { useRoute, useRouter } from "vue-router";
 
 export default {
   name: "my-header",
-  components: {},
-  data() {
-    return {};
-  },
   setup() {
     const centerRoutes = ["/profile", "/blog-manage", "/handle-blog"];
     const activeRoute = ref("");
     const isHomeHeader = ref("");
     const route = useRoute();
     const router = useRouter();
-    
+
     onMounted(() => {
       activeRoute.value = route.path;
       isHomeHeader.value = route.path === "/home" ? true : false;
     });
     watch(
       () => route.path,
-      (curPath) => {
+      curPath => {
         activeRoute.value = curPath;
-      isHomeHeader.value = curPath === "/home" ? true : false;
+        isHomeHeader.value = curPath === "/home" ? true : false;
       }
-    )
+    );
     function toPage(path) {
       router.push(path);
     }
